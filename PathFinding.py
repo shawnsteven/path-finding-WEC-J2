@@ -2,11 +2,11 @@
 
 # Inputs
 
-dimension = "6 8"
-botCoord = "2 6"
-userCoord = "3 5"
-obstacleArray = "2 1 4 2 1 3 3 3 1 5 1 6 2 5 4 5 4 6"
-itemCoord = "3 2"
+dimension = input()
+botCoord = input()
+userCoord = input()
+obstacleArray = input()
+itemCoord = input()
 
 # set up variables
 gotItem = False
