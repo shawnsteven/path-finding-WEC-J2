@@ -1,8 +1,6 @@
 # WEC Competition - Rhys, Anh, Shawn
 
-
-# from typing_extensions import Unpack
-
+# Inputs
 
 dimension = "6 8"
 botCoord = "2 6"
@@ -66,7 +64,12 @@ def checkMove(moveCoord, obstacleArray, gotItem):
         if(moveCoord[0] == userCoordList[0] and moveCoord[1] == userCoordList[1]):
             return False
 
+    if(moveCoord[0] == itemCoordList[0] and moveCoord[1] == itemCoordList[1]):
+        gotItem = True
+
     return True
+
+# these four functions describe how each move changes the coordinates.  They also check to see if they are valid or not using the checkMove Function
 
 
 def xMoveRight(testBotCoords, obstacleArrayList):
@@ -108,7 +111,8 @@ def yMoveUp(testBotCoords, obstacleArrayList):
         testBotCoords[1] += 1
         return False
 
-# main function
+# main function, recursively calls itself
+# First directs the bot to the item, then the user.  Directly to the user if there is no item
 
 
 def path_Finding(botPath, numMoves, botCoordList):
@@ -116,11 +120,19 @@ def path_Finding(botPath, numMoves, botCoordList):
     gotItem = False
     testBotCoords = botCoordList
 
+    # updates the string and number of moves so the final output is correct
+
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
     numMoves += 1
 
+    # checks to see if gotItem is true
+
     if(botCoordList[0] == itemCoordList[0] and botCoordList[1] == itemCoordList[1]):
         gotItem = True
+    if(itemCoordList[0] == ""):
+        gotItem = True
+
+    # ells code which itme to go after based on if item is gotten
 
     if(gotItem):
         xDifference = int(botCoordList[0]) - int(userCoordList[0])
@@ -128,6 +140,8 @@ def path_Finding(botPath, numMoves, botCoordList):
     else:
         xDifference = int(botCoordList[0]) - int(itemCoordList[0])
         yDifference = int(botCoordList[1]) - int(itemCoordList[1])
+
+    # algorithm to see which way the bot should move, based on how far it is away from the item/person in the x and y direction
 
     if(abs(xDifference) > abs(yDifference)):
         if(xDifference > 0):
