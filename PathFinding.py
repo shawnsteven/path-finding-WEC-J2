@@ -5,7 +5,7 @@ dimension = input("Dimension: ")
 botCoord = input("Robot's coordinates: ")
 userCoord = input("User's coordinates: ")
 obstacleArray = input("Array of obstacle: ")
-itemCoord = input("Item's coordinates: )
+itemCoord = input("Item's coordinates: ")
 
 # set up variables
 usedArray = []
