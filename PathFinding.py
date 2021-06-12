@@ -10,7 +10,7 @@ def checkMove(moveCoord, obstacleArray):
     for i in range(0, len(obstacleArray), 2):
 
         # want to check if moveCoord is in obstacleArray
-        if(moveCoord[i] == obstacleArray[i] and moveCoord[i+1] == obstacleArray[i+1]):
+        if(moveCoord[0] == obstacleArray[i] and moveCoord[1] == obstacleArray[i+1]):
             return False
 
     else:
