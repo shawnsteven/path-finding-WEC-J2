@@ -4,11 +4,11 @@
 # from typing_extensions import Unpack
 
 
-dimension = input()
-botCoord = input()
-userCoord = input()
-obstacleArray = input()
-itemCoord = input()
+dimension = "3 3"
+botCoord = "0 0"
+userCoord = "2 2"
+obstacleArray = ""
+itemCoord =  ""
 
 # set up variables
 usedArray = []
@@ -51,11 +51,13 @@ def outputCoords(botPath, numMoves):
 def checkMove(moveCoord, obstacleArray):
     for i in range(0, len(obstacleArray), 2):
         # want to check if moveCoord is in obstacleArray
+        if( obstacleArray[0] == ""):
+            return True
+
         if(moveCoord[0] == obstacleArray[i] and moveCoord[1] == obstacleArray[i+1]):
             return False
-
-    else:
-        return True
+            
+    return True
 
 
 def xMoveRight(testBotCoords, obstacleArrayList):
@@ -189,5 +191,5 @@ def path_Finding(botPath, numMoves, botCoordList):
     # once path has been found run the print function
 
 
-if(path_Finding("4 4", "3 3", "0 1", "2 1 1 3", " ")):
+if(path_Finding(botPath, numMoves, botCoordList)):
     print(outputCoords(botPath, numMoves))
