@@ -11,6 +11,7 @@ obstacleArray = "2 0 3 1 2 2 1 2 1 4"
 itemCoord = ""
 
 # set up variables
+gotItem = False
 usedArray = []
 testBotCoords = []
 numMoves = -1
@@ -36,7 +37,11 @@ if(obstacleArrayList[0] != ""):
         obstacleArrayList[i] = int(obstacleArrayList[i])
 
 itemCoordList = itemCoord.split(" ")
-
+if(itemCoordList[0] != ""):
+    for i in range(0, len(itemCoordList)):
+        itemCoordList[i] = int(itemCoordList[i])
+else:
+    gotItem = True
 # function to output
 
 
@@ -56,6 +61,13 @@ def checkMove(moveCoord, obstacleArray):
 
         if(moveCoord[0] == obstacleArray[i] and moveCoord[1] == obstacleArray[i+1]):
             return False
+
+    if(gotItem == False):
+        if(moveCoord[0] == userCoordList[0] and moveCoord[1] == userCoordList[1]):
+            return False
+
+    if(moveCoord[0] == itemCoordList[0] and moveCoord[1] == itemCoordList[1]):
+        gotItem = True
 
     return True
 
@@ -104,7 +116,6 @@ def yMoveUp(testBotCoords, obstacleArrayList):
 
 def path_Finding(botPath, numMoves, botCoordList):
 
-
     testBotCoords = botCoordList
 
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
@@ -112,7 +123,6 @@ def path_Finding(botPath, numMoves, botCoordList):
 
     xDifference = int(botCoordList[0]) - int(userCoordList[0])
     yDifference = int(botCoordList[1]) - int(userCoordList[1])
-
 
     if(abs(xDifference) > abs(yDifference)):
         if(xDifference > 0):
@@ -223,7 +233,7 @@ def path_Finding(botPath, numMoves, botCoordList):
                     return(path_Finding(botPath, numMoves, botCoordList))
                 elif(xMoveLeft(testBotCoords, obstacleArrayList) == True):
                     return(path_Finding(botPath, numMoves, botCoordList))
-  
+
     # adding to the final output
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
     print()
