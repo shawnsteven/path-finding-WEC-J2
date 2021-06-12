@@ -1,7 +1,7 @@
 # WEC Competition - Rhys, Anh, Shawn
 
 def outputCoords(botPath, numMoves):
-
+    botPath = botPath[:-2]
     print(botPath)
     print(numMoves)
 
@@ -73,7 +73,6 @@ def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
         testBotCoords = botCoordList
         xDifference = int(botCoordList[0]) - int(userCoordList[0])
         yDifference = int(botCoordList[1]) - int(userCoordList[1])
-        print("test")
 
         # to move horizontal
         if(abs(xDifference) > abs(yDifference)):
@@ -101,12 +100,8 @@ def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
         botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
         numMoves += 1
 
-        print(botCoordList)
-        print(userCoord)
-
         if(botCoordList == userCoordList):
             reachedObjective = True
-        print(numMoves)
 
     # once path has been found
     outputCoords(botPath, numMoves)
