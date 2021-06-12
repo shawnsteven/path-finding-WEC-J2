@@ -1,11 +1,11 @@
 # WEC Competition - Rhys, Anh, Shawn
 
 
-dimension = input()
-botCoord = input()
-userCoord = input()
-obstacleArray = input()
-itemCoord = input()
+dimension = input("Dimension: ")
+botCoord = input("Robot's coordinates: ")
+userCoord = input("User's coordinates: ")
+obstacleArray = input("Array of obstacle: ")
+itemCoord = input("Item's coordinates: )
 
 # set up variables
 usedArray = []
