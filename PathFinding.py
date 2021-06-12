@@ -66,9 +66,6 @@ def checkMove(moveCoord, obstacleArray, gotItem):
         if(moveCoord[0] == userCoordList[0] and moveCoord[1] == userCoordList[1]):
             return False
 
-    if(moveCoord[0] == itemCoordList[0] and moveCoord[1] == itemCoordList[1]):
-        gotItem = True
-
     return True
 
 
