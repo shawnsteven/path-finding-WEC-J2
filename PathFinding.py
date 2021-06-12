@@ -4,16 +4,16 @@
 # from typing_extensions import Unpack
 
 
-dimension = "3 3"
-botCoord = "0 0"
-userCoord = "2 2"
-obstacleArray = ""
+dimension = "6 6"
+botCoord = "1 1"
+userCoord = "4 4"
+obstacleArray = "2 0 3 1 2 2 1 2 1 4"
 itemCoord = ""
 
 # set up variables
 usedArray = []
 testBotCoords = []
-numMoves = 0
+numMoves = -1
 botPath = ""
 reachedObjective = False
 
@@ -104,27 +104,15 @@ def yMoveUp(testBotCoords, obstacleArrayList):
 
 def path_Finding(botPath, numMoves, botCoordList):
 
-    # to move horizontal
-    if(botCoordList == userCoord):
-        print(botPath)
-        print(numMoves)
-        return True
 
     testBotCoords = botCoordList
 
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
     numMoves += 1
 
-    print(botPath)
-    print(numMoves)
-
     xDifference = int(botCoordList[0]) - int(userCoordList[0])
     yDifference = int(botCoordList[1]) - int(userCoordList[1])
 
-    # to move horizontal
-    if(botCoordList == userCoord):
-        print(outputCoords(botPath, numMoves))
-        return True
 
     if(abs(xDifference) > abs(yDifference)):
         if(xDifference > 0):
@@ -235,11 +223,12 @@ def path_Finding(botPath, numMoves, botCoordList):
                     return(path_Finding(botPath, numMoves, botCoordList))
                 elif(xMoveLeft(testBotCoords, obstacleArrayList) == True):
                     return(path_Finding(botPath, numMoves, botCoordList))
-
+  
     # adding to the final output
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
-    numMoves += 1
-    # once path has been found run the print function
+    print()
+    print(botPath[5:-7])
+    print(numMoves)
 
 
 path_Finding(botPath, numMoves, botCoordList)
