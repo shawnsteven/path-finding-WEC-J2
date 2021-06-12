@@ -1,15 +1,15 @@
 # WEC Competition - Rhys, Anh, Shawn
 
 def outputCoords(botPath, numMoves):
-    
+
     print(botPath)
     print(numMoves)
 
 
 def checkMove(moveCoord, obstacleArray):
     for i in range(0, len(obstacleArray), 2):
-        
-        #want to check if moveCoord is in obstacleArray
+
+        # want to check if moveCoord is in obstacleArray
         if(moveCoord[i] == obstacleArray[i] and moveCoord[i+1] == obstacleArray[i+1]):
             return False
 
@@ -17,78 +17,115 @@ def checkMove(moveCoord, obstacleArray):
         return True
 
 
+def xMove(xDifference, testBotCoords, obstacleArrayList):
+    if(xDifference > 0):
+        testBotCoords[0] -= 1
+    else:
+        testBotCoords[0] += 1
+    if(checkMove(testBotCoords, obstacleArrayList)):
+        return True
+    else:
+        return False
+
+
+def yMove(yDifference, testBotCoords, obstacleArrayList):
+    if(yDifference > 0):
+        testBotCoords[1] -= 1
+    else:
+        testBotCoords[1] += 1
+    if(checkMove(testBotCoords, obstacleArrayList)):
+        return True
+    else:
+        return False
+
+
 def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
 
-    #set up variables
+    # set up variables
     newBotCoords = []
     testBotCoords = []
     numMoves = 0
     botPath = ""
     reachedObjective = False
 
-    #set up our variables into arrays
+    # set up our variables into arrays
     dimensionList = dimension.split(" ")
+    for i in range(0, len(dimensionList)):
+        dimensionList[i] = int(dimensionList[i])
+
     botCoordList = botCoord.split(" ")
+    for i in range(0, len(botCoordList)):
+        botCoordList[i] = int(botCoordList[i])
+
     userCoordList = userCoord.split(" ")
+    for i in range(0, len(userCoordList)):
+        userCoordList[i] = int(userCoordList[i])
+
     obstacleArrayList = obstacleArray.split(" ")
-
-
-    [3, 2, 3, 4, 3, 2] = 
-
-    [[3, 2], [3, 4]]
+    if(obstacleArrayList[0] != ""):
+        for i in range(0, len(obstacleArrayList)):
+            obstacleArrayList[i] = int(obstacleArrayList[i])
 
     itemCoordList = itemCoord.split(" ")
-    
-    #main loop
+
+    # main loop
     while(not reachedObjective):
-        xDifference = botCoordList[0] - userCoordList[0]
-        yDifference = botCoordList[1] - userCoordList[1]
+        testBotCoords = botCoordList
+        xDifference = int(botCoordList[0]) - int(userCoordList[0])
+        yDifference = int(botCoordList[1]) - int(userCoordList[1])
 
-
-        #to move horizontal
+        # to move horizontal
         if(abs(xDifference) > abs(yDifference)):
-            #if difference is positive, then the bot needs to move left
-            if(xDifference > 0):
-                testBotCoords = botCoordList
-                testBotCoords[0] -= 1
-                
-
-                #now we need to check if the move is allowed
-                if(checkMove(testBotCoords, obstacleArrayList)):
-                    botCoord = testBotCoords
-                
+            # if difference is positive, then the bot needs to move left
+            if(xMove(xDifference, testBotCoords, obstacleArrayList)):
+                if(xDifference > 0):
+                    testBotCoords[0] -= 1
                 else:
-                    
-                    
+                    testBotCoords[0] += 1
+                botCoordList = testBotCoords
+            elif(yMove(yDifference, testBotCoords, obstacleArrayList)):
+                if(yDifference > 0):
+                    testBotCoords[1] -= 1
+                else:
+                    testBotCoords[1] += 1
+                botCoordList = testBotCoords
 
-            #if difference is negative, then the bot needs to move right
-            else:
-                testBotCoords = botCoordList
-                testBotCoords[0] += 1
-            
-
-
-        #to move vertical
+        # to move vertical
         elif(abs(xDifference) < abs(yDifference)):
-            #if difference is positive, then the bot needs to move up
-            if(yDifference > 0):
-                testBotCoords = botCoordList
-                testBotCoords[1] -= 1
-                
-            #if difference is negative, then the bot needs to move down
-            else:  
-                testBotCoords = botCoordList
-                testBotCoords[1] += 1
+            # if difference is positive, then the bot needs to move up
+            if(yMove(yDifference, testBotCoords, obstacleArrayList)):
+                if(yDifference > 0):
+                    testBotCoords[1] -= 1
+                else:
+                    testBotCoords[1] += 1
+                botCoordList = testBotCoords
+            elif(xMove(xDifference, testBotCoords, obstacleArrayList)):
+                if(xDifference > 0):
+                    testBotCoords[0] -= 1
+                else:
+                    testBotCoords[0] += 1
+                botCoordList = testBotCoords
 
-        #move in any direction
+        # if both x and y differences are same then move in x direction (could be either)
         else:
+            if(xMove(xDifference, testBotCoords, obstacleArrayList)):
+                if(xDifference > 0):
+                    testBotCoords[0] -= 1
+                else:
+                    testBotCoords[0] += 1
+                botCoordList = testBotCoords
+            elif(yMove(yDifference, testBotCoords, obstacleArrayList)):
+                if(yDifference > 0):
+                    testBotCoords[1] -= 1
+                else:
+                    testBotCoords[1] += 1
+                botCoordList = testBotCoords
 
-    
-    #once path has been found
+        botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
+        numMoves += 1
+
+    # once path has been found
     outputCoords(botPath, numMoves)
 
- 
 
-
-
-print(path_Finding())
+path_Finding("3 3", "0 0", "2 2", " ", " ")
