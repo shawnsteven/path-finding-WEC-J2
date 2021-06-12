@@ -20,23 +20,35 @@ def checkMove(moveCoord, obstacleArray):
 def xMove(xDifference, testBotCoords, obstacleArrayList):
     if(xDifference > 0):
         testBotCoords[0] -= 1
+        if(checkMove(testBotCoords, obstacleArrayList)):
+            return True
+        else:
+            testBotCoords[0] += 1
+            return False
     else:
         testBotCoords[0] += 1
-    if(checkMove(testBotCoords, obstacleArrayList)):
-        return True
-    else:
-        return False
+        if(checkMove(testBotCoords, obstacleArrayList)):
+            return True
+        else:
+            testBotCoords[0] -= 1
+            return False
 
 
 def yMove(yDifference, testBotCoords, obstacleArrayList):
     if(yDifference > 0):
         testBotCoords[1] -= 1
+        if(checkMove(testBotCoords, obstacleArrayList)):
+            return True
+        else:
+            testBotCoords[1] += 1
+            return False
     else:
         testBotCoords[1] += 1
-    if(checkMove(testBotCoords, obstacleArrayList)):
-        return True
-    else:
-        return False
+        if(checkMove(testBotCoords, obstacleArrayList)):
+            return True
+        else:
+            testBotCoords[1] -= 1
+            return False
 
 
 def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
