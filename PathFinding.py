@@ -119,4 +119,4 @@ def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
     outputCoords(botPath, numMoves)
 
 
-path_Finding("3 3", "0 0", "1 2", "0 1 0 2", " ")
+path_Finding("4 4", "3 3", "0 1", "2 1 1 3", " ")
