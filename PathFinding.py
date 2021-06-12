@@ -73,6 +73,7 @@ def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
         testBotCoords = botCoordList
         xDifference = int(botCoordList[0]) - int(userCoordList[0])
         yDifference = int(botCoordList[1]) - int(userCoordList[1])
+        print("test")
 
         # to move horizontal
         if(abs(xDifference) > abs(yDifference)):
@@ -123,6 +124,13 @@ def path_Finding(dimension, botCoord, userCoord, obstacleArray, itemCoord):
 
         botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
         numMoves += 1
+
+        print(botCoordList)
+        print(userCoord)
+        
+        if(botCoordList == userCoord):
+            reachedObjective = True
+        print(numMoves)
 
     # once path has been found
     outputCoords(botPath, numMoves)
