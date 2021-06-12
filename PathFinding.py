@@ -4,11 +4,11 @@
 # from typing_extensions import Unpack
 
 
-dimension = "6 6"
-botCoord = "1 1"
-userCoord = "4 4"
-obstacleArray = "2 0 3 1 2 2 1 2 1 4"
-itemCoord = ""
+dimension = "6 8"
+botCoord = "2 6"
+userCoord = "3 5"
+obstacleArray = "2 1 4 2 1 3 3 3 1 5 1 6 2 5 4 5 4 6"
+itemCoord = "3 2"
 
 # set up variables
 gotItem = False
@@ -53,7 +53,7 @@ def outputCoords(botPath, numMoves):
 # function to check whether a move is legal
 
 
-def checkMove(moveCoord, obstacleArray):
+def checkMove(moveCoord, obstacleArray, gotItem):
     for i in range(0, len(obstacleArray), 2):
         # want to check if moveCoord is in obstacleArray
         if(obstacleArray[0] == ""):
@@ -74,7 +74,7 @@ def checkMove(moveCoord, obstacleArray):
 
 def xMoveRight(testBotCoords, obstacleArrayList):
     testBotCoords[0] += 1
-    if(checkMove(testBotCoords, obstacleArrayList)):
+    if(checkMove(testBotCoords, obstacleArrayList, gotItem)):
         obstacleArrayList += testBotCoords
         return True
     else:
@@ -84,7 +84,7 @@ def xMoveRight(testBotCoords, obstacleArrayList):
 
 def xMoveLeft(testBotCoords, obstacleArrayList):
     testBotCoords[0] -= 1
-    if(checkMove(testBotCoords, obstacleArrayList)):
+    if(checkMove(testBotCoords, obstacleArrayList, gotItem)):
         obstacleArrayList += testBotCoords
         return True
     else:
@@ -94,7 +94,7 @@ def xMoveLeft(testBotCoords, obstacleArrayList):
 
 def yMoveDown(testBotCoords, obstacleArrayList):
     testBotCoords[1] += 1
-    if(checkMove(testBotCoords, obstacleArrayList)):
+    if(checkMove(testBotCoords, obstacleArrayList, gotItem)):
         obstacleArrayList += testBotCoords
         return True
     else:
@@ -104,7 +104,7 @@ def yMoveDown(testBotCoords, obstacleArrayList):
 
 def yMoveUp(testBotCoords, obstacleArrayList):
     testBotCoords[1] -= 1
-    if(checkMove(testBotCoords, obstacleArrayList)):
+    if(checkMove(testBotCoords, obstacleArrayList, gotItem)):
         obstacleArrayList += testBotCoords
         return True
     else:
@@ -116,13 +116,21 @@ def yMoveUp(testBotCoords, obstacleArrayList):
 
 def path_Finding(botPath, numMoves, botCoordList):
 
+    gotItem = False
     testBotCoords = botCoordList
 
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
     numMoves += 1
 
-    xDifference = int(botCoordList[0]) - int(userCoordList[0])
-    yDifference = int(botCoordList[1]) - int(userCoordList[1])
+    if(botCoordList[0] == itemCoordList[0] and botCoordList[1] == itemCoordList[1]):
+        gotItem = True
+
+    if(gotItem):
+        xDifference = int(botCoordList[0]) - int(userCoordList[0])
+        yDifference = int(botCoordList[1]) - int(userCoordList[1])
+    else:
+        xDifference = int(botCoordList[0]) - int(itemCoordList[0])
+        yDifference = int(botCoordList[1]) - int(itemCoordList[1])
 
     if(abs(xDifference) > abs(yDifference)):
         if(xDifference > 0):
