@@ -8,7 +8,7 @@ dimension = "3 3"
 botCoord = "0 0"
 userCoord = "2 2"
 obstacleArray = ""
-itemCoord =  ""
+itemCoord = ""
 
 # set up variables
 usedArray = []
@@ -51,12 +51,12 @@ def outputCoords(botPath, numMoves):
 def checkMove(moveCoord, obstacleArray):
     for i in range(0, len(obstacleArray), 2):
         # want to check if moveCoord is in obstacleArray
-        if( obstacleArray[0] == ""):
+        if(obstacleArray[0] == ""):
             return True
 
         if(moveCoord[0] == obstacleArray[i] and moveCoord[1] == obstacleArray[i+1]):
             return False
-            
+
     return True
 
 
@@ -104,12 +104,26 @@ def yMoveUp(testBotCoords, obstacleArrayList):
 
 def path_Finding(botPath, numMoves, botCoordList):
 
+    # to move horizontal
+    if(botCoordList == userCoord):
+        print(botPath)
+        print(numMoves)
+        return True
+
     testBotCoords = botCoordList
+
+    botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
+    numMoves += 1
+
+    print(botPath)
+    print(numMoves)
+
     xDifference = int(botCoordList[0]) - int(userCoordList[0])
     yDifference = int(botCoordList[1]) - int(userCoordList[1])
 
     # to move horizontal
     if(botCoordList == userCoord):
+        print(outputCoords(botPath, numMoves))
         return True
 
     if(abs(xDifference) > abs(yDifference)):
@@ -149,7 +163,7 @@ def path_Finding(botPath, numMoves, botCoordList):
                     return(path_Finding(botPath, numMoves, botCoordList))
                 elif(xMoveLeft(testBotCoords, obstacleArrayList) == True):
                     return(path_Finding(botPath, numMoves, botCoordList))
-    else:
+    elif(abs(yDifference) > abs(xDifference)):
         if(yDifference > 0):
             if(yMoveUp(testBotCoords, obstacleArrayList) == True):
                 return(path_Finding(botPath, numMoves, botCoordList))
@@ -184,6 +198,43 @@ def path_Finding(botPath, numMoves, botCoordList):
                     return(path_Finding(botPath, numMoves, botCoordList))
                 elif(yMoveUp(testBotCoords, obstacleArrayList) == True):
                     return(path_Finding(botPath, numMoves, botCoordList))
+    else:
+        if(xDifference > 0):
+            if(xMoveLeft(testBotCoords, obstacleArrayList) == True):
+                return(path_Finding(botPath, numMoves, botCoordList))
+            elif(yDifference > 0):
+                if(yMoveUp(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(yMoveDown(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(xMoveRight(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                else:
+                    return False
+            else:
+                if(yMoveDown(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(yMoveUp(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(xMoveRight(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+        if(xDifference < 0):
+            if(xMoveRight(testBotCoords, obstacleArrayList) == True):
+                return(path_Finding(botPath, numMoves, botCoordList))
+            elif(yDifference > 0):
+                if(yMoveUp(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(yMoveDown(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(xMoveLeft(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+            else:
+                if(yMoveDown(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(yMoveUp(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
+                elif(xMoveLeft(testBotCoords, obstacleArrayList) == True):
+                    return(path_Finding(botPath, numMoves, botCoordList))
 
     # adding to the final output
     botPath += (str(botCoordList[0]) + " " + str(botCoordList[1]) + ", ")
@@ -191,5 +242,4 @@ def path_Finding(botPath, numMoves, botCoordList):
     # once path has been found run the print function
 
 
-if(path_Finding(botPath, numMoves, botCoordList)):
-    print(outputCoords(botPath, numMoves))
+path_Finding(botPath, numMoves, botCoordList)
